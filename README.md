@@ -47,9 +47,15 @@ projects/*.srproj    # saved projects
 python app/main.py
 ```
 
-A simple PyQt5 window will open. The backend in `backend/renderer.py` and project
-utilities in `app/project.py` are placeholders and need proper model
-integration.
+Running the command above will open a PyQt5 window with three tabs:
+
+1. **Sketch** – upload an image and optionally run a simple cleanup.
+2. **Depth** – generate a fake depth heatmap for preview and editing.
+3. **Render** – enter lighting text and produce a mock render.
+
+The backend modules currently perform lightweight image manipulations using
+Pillow. They are structured so real ONNX models can replace the placeholder
+functions later.
 
 ## Packaging
 
