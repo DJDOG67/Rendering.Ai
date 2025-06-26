@@ -1,19 +1,45 @@
 # Rendering.Ai
 
-Prototype Windows application for sketch-based rendering with AI assistance.
+Prototype Windows application for sketch-based rendering with AI assistance. The goal is to keep the original sketch while applying style, texture and lighting information to produce a Photoshop-like render.
 
-This repository contains a minimal PyQt5 application and placeholder backend
-modules. The target architecture is based on the following components:
+## Project Overview
 
-- **UI Framework:** PyQt5
-- **AI Backend:** Stable Diffusion XL + ControlNet (Canny, Depth) + IPAdapter
-- **Depth Model:** MiDaS DPT-Large
-- **Preset Storage:** JSON files
-- **Local Execution:** ONNX models
-- **Project Format:** `.srproj`
-- **Preset UI:** Thumbnail and name list
+- **Target users:** product, industrial and automotive designers, illustrators
+- **Environment:** Windows 10+, GPU recommended, works offline
+- **Distribution:** packaged as a standalone `.exe` with an installer
 
-The code here is a starting point and does not include actual model files.
+## Core Features
+
+| Group | Feature | Notes |
+|-------|---------|------|
+| **Input** | Sketch upload | JPG/PNG/PSD supported |
+| **Pre‑process** | Sketch cleanup | Noise removal and contrast enhancement |
+| **Depth** | Automatic MiDaS DPT-Large | Visualised as a heatmap |
+| **Depth Edit** | Manual corrections | Brush/slider tools |
+| **Lighting** | Text based control | e.g. "from top left" |
+| **Texture** | Per part materials | e.g. "door: metal" |
+| **Background** | Style description | e.g. "white studio" |
+| **Style** | Photo style extraction | Keywords shown in English |
+| **Rendering** | SDXL + ControlNet + IPAdapter | ONNX runtime |
+| **Project** | `.srproj` save/load | Zip containing sketch, depth and settings |
+| **Presets** | JSON based styles | Managed with thumbnail list |
+
+## GUI Flow
+
+1. **Sketch tab** – upload and optionally clean the sketch
+2. **Depth tab** – view automatic depth heatmap and edit
+3. **Lighting / Texture tab** – set lighting angle, part materials and background
+4. **Preset tab** – apply or create style presets
+5. **Render tab** – generate final image and preview
+6. **Save tab** – export `.srproj` and rendered images
+
+## File Structure
+
+```
+user_presets.json    # stored presets
+render_cache/        # temporary render outputs
+projects/*.srproj    # saved projects
+```
 
 ## Running
 
@@ -21,12 +47,11 @@ The code here is a starting point and does not include actual model files.
 python app/main.py
 ```
 
-This launches a simple window with buttons for uploading a sketch, cleaning it
-up, and running a render. Backend functions in `backend/renderer.py` are
-placeholders that should be replaced with real implementations.
+A simple PyQt5 window will open. The backend in `backend/renderer.py` and project
+utilities in `app/project.py` are placeholders and need proper model
+integration.
 
-## Presets
+## Packaging
 
-Example presets are stored in the `presets/` directory. Use `app/presets.py` to
-load or save presets programmatically.
-
+The final application is intended to be packaged with **PyInstaller** and
+shipped using an **NSIS** installer.
