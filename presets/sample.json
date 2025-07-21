@@ -1,0 +1,6 @@
+{
+  "name": "sample",
+  "description": "Example preset for Rendering.Ai",
+  "lighting": "default",
+  "materials": {}
+}
